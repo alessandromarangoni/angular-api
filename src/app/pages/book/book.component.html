@@ -1,0 +1,19 @@
+<router-outlet>
+<div class="container-fluid">
+    <div class="row d-flex flex-wrap w-100 justify-content-center">
+        <div *ngFor="let item of books" class="card card-custom p-2 m-2 ">
+            <div class="text-center d-flex flex-column align-items-center position-relative">
+                <div *ngIf="item.img" class=""> <img [src]="item.img" class="top-0 z-1" alt=""></div>
+                <small><strong>ISBN:</strong>{{item.isbn}}</small>
+                <span><strong>City:</strong> {{item.country}}</span>
+                <span class="pt-2"><strong>Author:</strong></span>
+                <div *ngFor="let author of item.authors" class="d-flex">
+                    {{author}}
+                </div>
+                <span class="pt-2"><strong>Author:</strong>{{ item.released }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- <button (click)="nextPage()" class="btn btn-primay">></button> -->
+</div>
+</router-outlet>
