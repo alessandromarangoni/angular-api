@@ -23,7 +23,9 @@ export class BookComponent implements OnInit {
     // Recupero libri
     this.bookService.getBooks().subscribe(data => {
       console.log(data);
+      //assegno i dati ricavati alla variavile books
       this.books = data;
+      //ciclo su ogni libro (element e chiama la funzione usando il libro.name)
       this.books.forEach((element: any) => {
         this.getCover(element.name)
       });
@@ -54,6 +56,11 @@ export class BookComponent implements OnInit {
     });
   }
 
+  //per andare alla rotta singleBook ho bisogno di un paramtero
+  //visto che nell api non hanno un id univoco i libri 
+  //ho preso l ultimo carattere della stringa ricavata dalla proprieta link 
+  //e lo uso per navigare verso quella rotta nel mio sistema oltre che a riusarlo per la chiamata in singleBook
+  //*****essendoci solo dieci record si può fare cosi ma è una porcata (chiedere consiglio per eventuali soluz alternative) *******/
   goToSingleBook(url : string){
     let id = url.charAt(url.length - 1);
     if(id == '0'){
