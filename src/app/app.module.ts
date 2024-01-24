@@ -7,12 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 import { BookComponent } from './pages/book/book.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './section/header/header.component';
+import { SingleBookComponent } from './pages/single-book/single-book.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent
+    BookComponent,
+    HeaderComponent,
+    SingleBookComponent
   ],
   imports: [
     BrowserModule,

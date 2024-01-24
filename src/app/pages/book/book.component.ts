@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookServiceService } from '../../services/book-service.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book',
@@ -14,7 +15,8 @@ export class BookComponent implements OnInit {
   covers: any;
 
   constructor(
-    private readonly bookService: BookServiceService
+    private readonly bookService: BookServiceService, 
+    private readonly router : Router
   ) {}
 
   ngOnInit(): void {
@@ -45,10 +47,19 @@ export class BookComponent implements OnInit {
           //se si
           if (cover) {
             //assegno proprietà cover
-            obj.img = cover.volumeInfo.imageLinks.thumbnail			;
+            obj.img = cover.volumeInfo.imageLinks.thumbnail;
           }
         });
       }
     });
   }
+
+  goToSingleBook(url : string){
+    let id = url.charAt(url.length - 1);
+    if(id == '0'){
+      id = '10'
+    }
+    this.router.navigate(['/book', id]);
+  }
+
 }

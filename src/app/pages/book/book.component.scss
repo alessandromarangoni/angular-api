@@ -1,4 +1,11 @@
 .card-custom{
     height: 350px!important;
     width: 200px;
+    left:0;
+    top:0
+}
+.card-custom:hover{
+img{
+    z-index: -1!important
+}
 }

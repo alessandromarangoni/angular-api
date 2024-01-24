@@ -14,8 +14,8 @@ export class BookServiceService {
   getBooks(): Observable<any[]> {
     return this.http.get<any[]>(this.url);
   }
-  // nextPage(){
-  //   this.page ++ 
-  //   this.getBooks()
-  // }
+
+  getSingleBook(id: string): Observable<any[]>{
+    return this.http.get<any[]>(this.url + '/' + id);
+  }
 }
