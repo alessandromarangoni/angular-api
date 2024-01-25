@@ -11,12 +11,12 @@ import { Book } from '../../bookInterface';
 })
 
 export class BookComponent implements OnInit {
-  books: Book[] = []; 
+  books: Book[] = [];
   private googleurl = 'https://www.googleapis.com/books/v1/volumes?q=';
   covers: any;
 
   constructor(
-    private readonly bookService: BookServiceService, 
+    private readonly bookService: BookServiceService,
     private readonly router : Router
   ) {}
 
@@ -38,16 +38,16 @@ export class BookComponent implements OnInit {
   // ottengo cover dal titolo
   getCover(book : Book): void {
     //chiamata api con titolo annesso
-    this.bookService.http.get<any[]>(this.googleurl + book.name + '&maxResults=1').subscribe(data => {
+    this.bookService.http.get<any[]>(this.googleurl + book.name).subscribe(data => {
       // console.log(data);
 
       //assegno dati all array covers
       this.covers = data;
       console.log(this.covers)
-      // Verifica se ci sono risultati 
+      // Verifica se ci sono risultati
       if (this.covers.items && this.covers.items.length > 0) {
         //cerco in covers se books.name == items.volumeInfo.title
-        const cover = this.covers.items.find((c: { volumeInfo: { title: string; }; }) => 
+        const cover = this.covers.items.find((c: { volumeInfo: { title: string; }; }) =>
         c.volumeInfo.title.trim().toLowerCase().includes(book.name.toLowerCase()));
         //se si
         setTimeout(function() {
@@ -62,8 +62,8 @@ export class BookComponent implements OnInit {
   }
 
   //per andare alla rotta singleBook ho bisogno di un paramtero
-  //visto che nell api non hanno un id univoco i libri 
-  //ho preso l ultimo carattere della stringa ricavata dalla proprieta link 
+  //visto che nell api non hanno un id univoco i libri
+  //ho preso l ultimo carattere della stringa ricavata dalla proprieta link
   //e lo uso per navigare verso quella rotta nel mio sistema oltre che a riusarlo per la chiamata in singleBook
   //*****essendoci solo dieci record si può fare cosi ma è una porcata (chiedere consiglio per eventuali soluz alternative) *******/
   goToSingleBook(url : string){
