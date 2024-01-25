@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookServiceService } from '../../services/book-service.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Book } from '../../bookInterface';
 
 @Component({
   selector: 'app-book',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class BookComponent implements OnInit {
-  books: any; 
+  books: Book[] = []; 
   private googleurl = 'https://www.googleapis.com/books/v1/volumes?q=';
   covers: any;
 
@@ -25,33 +26,37 @@ export class BookComponent implements OnInit {
       console.log(data);
       //assegno i dati ricavati alla variavile books
       this.books = data;
+      console.log(this.books)
       //ciclo su ogni libro (element e chiama la funzione usando il libro.name)
       this.books.forEach((element: any) => {
-        this.getCover(element.name)
+        this.getCover(element)
       });
+
     });
   }
 
   // ottengo cover dal titolo
-  getCover(titolo: string): void {
+  getCover(book : Book): void {
     //chiamata api con titolo annesso
-    this.bookService.http.get<any[]>(this.googleurl + titolo).subscribe(data => {
-      console.log(data);
+    this.bookService.http.get<any[]>(this.googleurl + book.name + '&maxResults=1').subscribe(data => {
+      // console.log(data);
+
       //assegno dati all array covers
       this.covers = data;
-
+      console.log(this.covers)
       // Verifica se ci sono risultati 
       if (this.covers.items && this.covers.items.length > 0) {
-        // ciclo su libri
-        this.books.forEach((obj: any) => {
-                        //cerco in covers se books.name == items.volumeInfo.title
-          const cover = this.covers.items.find((c: { volumeInfo: { title: any; }; }) => c.volumeInfo.title === obj.name);
-          //se si
+        //cerco in covers se books.name == items.volumeInfo.title
+        const cover = this.covers.items.find((c: { volumeInfo: { title: string; }; }) => 
+        c.volumeInfo.title.trim().toLowerCase().includes(book.name.toLowerCase()));
+        //se si
+        setTimeout(function() {
           if (cover) {
-            //assegno proprietà cover
-            obj.img = cover.volumeInfo.imageLinks.thumbnail;
+            // Assegno proprietà cover
+            book.img = cover.volumeInfo.imageLinks.thumbnail;
+            console.log(cover); // Questo verrà eseguito dopo un ritardo di 3 secondi (3000 millisecondi)
           }
-        });
+        }, 1000);
       }
     });
   }

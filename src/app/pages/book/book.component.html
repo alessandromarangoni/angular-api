@@ -1,10 +1,11 @@
+<app-header></app-header>
 <router-outlet></router-outlet>
-<div class="d-flex justify-content-center">
-    <div class="w-75">
-        <div class="d-flex flex-wrap w-100 justify-content-evenly p-5">
-            <div *ngFor="let item of books" class="card card-custom m-3 bg-dark">
-                <div (click)="goToSingleBook(item.url)" class="text-center d-flex flex-column align-items-center position-relative text-white ">
-                    <div class=""> <img [src]="item.img != undefined ? item.img : 'https://d827xgdhgqbnd.cloudfront.net/wp-content/uploads/2016/04/09121712/book-cover-placeholder.png'" class="card-custom position-absolute top-0 z-1" alt=""></div>
+<div class="d-flex justify-content-center mt-3 z-0">
+    <div class="w-75 mt-5 z-0">
+        <div class="d-flex flex-wrap w-100 justify-content-evenly p-5 z-0">
+            <div *ngFor="let item of books" class="card card-custom m-3 bg-dark z-0">
+                <div (click)="goToSingleBook(item.url)" class="text-center d-flex flex-column align-items-center position-relative text-white z-0">
+                    <div class=""> <img [src]="item.img != undefined ? item.img : 'https://d827xgdhgqbnd.cloudfront.net/wp-content/uploads/2016/04/09121712/book-cover-placeholder.png'" class="card-custom position-absolute top-0 z-0" alt=""></div>
                     <h1>{{item.name}}</h1>
                     <span><strong>City:</strong>{{item.country}}</span>
                     <span class="pt-2"><strong>Author:</strong></span>

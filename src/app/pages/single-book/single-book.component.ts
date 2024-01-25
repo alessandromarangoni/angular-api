@@ -51,7 +51,7 @@ export class SingleBookComponent implements OnInit{
   getCover(){
     //da sistemare qui ho dovuto rendere pubblico http ma è una schifezza 
     //fatto per usare l http.get 
-    this.bookService.http.get<any[]>(this.googleurl + this.libro.name).subscribe(data => {
+    this.bookService.http.get<any[]>(this.googleurl + this.libro.name + '&maxResults=1').subscribe(data => {
       //assegno dati di risposta all array googleLibro
       this.googleLibro = data;
       //console.log(this.googleLibro)
